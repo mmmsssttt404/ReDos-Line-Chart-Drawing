@@ -67,7 +67,7 @@ window.addEventListener('DOMContentLoaded', () => {
       data: {
         labels: labels,
         datasets: [{
-          label: '耗时 (ms)',
+          label: 'Time (ms)',
           data: values,
           borderColor: 'red',
           fill: false,
@@ -77,8 +77,8 @@ window.addEventListener('DOMContentLoaded', () => {
       options: {
         responsive: true,
         scales: {
-          x: { title: { display: true, text: '字符串长度 (N)' } },
-          y: { title: { display: true, text: '耗时 (ms)' }, beginAtZero: true }
+          x: { title: { display: true, text: 'String Length (N)' } },
+          y: { title: { display: true, text: 'Time (ms)' }, beginAtZero: true }
         }
       }
     });
