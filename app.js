@@ -1,6 +1,4 @@
 function parseAttackBase(attackBase) {
-  // 匹配：可能有前缀 + "中间"*数字 + 可能有后缀
-  // 示例:  " " + ":"*100000 + "\n1\n"
   const regex = /^(.*)?\s*\+\s*"(.*)"\*\d+\s*(?:\+\s*(.*))?$/;
   const m = attackBase.match(regex);
   if (!m) throw new Error("攻击串格式错误，应类似：\" \" + \":\"*100000 + \"\\n1\\n\"");
@@ -84,5 +82,17 @@ window.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+  });
+
+  // 导出为 PNG
+  document.getElementById('export').addEventListener('click', () => {
+    if (!chart) {
+      alert("请先运行测试生成图表！");
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = chart.toBase64Image();
+    link.download = 'redos_result.png';
+    link.click();
   });
 });
