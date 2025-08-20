@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>ReDoS 测试工具</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js" defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 10px; }
+    input { width: 400px; padding: 5px; }
+    button { margin-top: 15px; padding: 8px 15px; }
+    canvas { margin-top: 30px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h2>ReDoS 正则测试工具</h2>
+
+  <label>正则表达式:
+    <input id="regex" placeholder="例如: (a+)+$">
+  </label>
+
+  <label>攻击串模板:
+    <input id="attack" placeholder='" " + ":"*100000 + "\n1\n"'>
+  </label>
+
+  <label>最大长度:
+    <input id="maxlen" type="number" value="5000">
+  </label>
+
+  <label>步长:
+    <input id="step" type="number" value="500">
+  </label>
+
+  <button id="run">运行测试并画图</button>
+
+  <canvas id="chart" width="600" height="400"></canvas>
+</body>
+</html>
