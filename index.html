@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <title>ReDoS 测试工具</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/ReDos-Line-Chart-Drawing/app.js" defer></script>
+  <script src="app.js" defer></script>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     label { display: block; margin-top: 10px; }
-    input { width: 400px; padding: 5px; }
-    button { margin-top: 15px; padding: 8px 15px; }
-    canvas { margin-top: 30px; border: 1px solid #ccc; }
+    input { width: 640px; max-width: 100%; padding: 6px 8px; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .row > * { margin-top: 10px; }
+    button { padding: 8px 14px; }
+    canvas { margin-top: 18px; border: 1px solid #ccc; }
+    small.hint { color: #666; display: block; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -21,20 +24,23 @@
   </label>
 
   <label>攻击串模板:
-    <input id="attack" placeholder='" " + ":"*100000 + "\n1\n"'>
+    <input id="attack" placeholder='" " + ":"*100000 + "\n1\n"  或  ":"*100000'>
+    <small class="hint">示例 1：<code>" " + ":"*100000 + "\n1\n"</code>；示例 2：<code>":"*100000</code></small>
   </label>
 
-  <label>最大长度:
-    <input id="maxlen" type="number" value="5000">
-  </label>
+  <div class="row">
+    <label>最大长度:
+      <input id="maxlen" type="number" value="5000">
+    </label>
 
-  <label>步长:
-    <input id="step" type="number" value="500">
-  </label>
+    <label>步长:
+      <input id="step" type="number" value="500">
+    </label>
 
-  <button id="run">运行测试并画图</button>
-  <button id="export">导出为 PNG</button>
+    <button id="run">运行测试并画图</button>
+    <button id="export">导出为 PNG</button>
+  </div>
 
-  <canvas id="chart" width="600" height="400"></canvas>
+  <canvas id="chart" width="900" height="520"></canvas>
 </body>
 </html>
