@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>ReDoS 测试工具</title>
+  <meta charset="UTF-8" />
+  <title>ReDoS 正则测试工具</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="app.js" defer></script>
+  <script src="/ReDos-Line-Chart-Drawing/app.js" defer></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; margin: 20px; }
     label { display: block; margin-top: 10px; }
-    input { width: 640px; max-width: 100%; padding: 6px 8px; }
-    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .row > * { margin-top: 10px; }
-    button { padding: 8px 14px; }
-    canvas { margin-top: 18px; border: 1px solid #ccc; }
-    small.hint { color: #666; display: block; margin-top: 4px; }
+    input, select { width: 360px; padding: 6px 8px; font-size: 14px; }
+    button { margin-top: 14px; padding: 8px 16px; font-size: 14px; }
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hint { color: #888; font-size: 12px; margin-top: 4px; }
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .chart-wrap { margin-top: 16px; height: 560px; }
+    canvas { background: transparent; }
   </style>
 </head>
 <body>
   <h2>ReDoS 正则测试工具</h2>
 
-  <label>正则表达式:
-    <input id="regex" placeholder="例如: (a+)+$">
-  </label>
-
-  <label>攻击串模板:
-    <input id="attack" placeholder='" " + ":"*100000 + "\n1\n"  或  ":"*100000'>
-    <small class="hint">示例 1：<code>" " + ":"*100000 + "\n1\n"</code>；示例 2：<code>":"*100000</code></small>
-  </label>
-
   <div class="row">
-    <label>最大长度:
-      <input id="maxlen" type="number" value="5000">
-    </label>
+    <div>
+      <label>正则表达式：
+        <input id="regex" placeholder="例如：(a+)+$" />
+      </label>
+    </div>
 
-    <label>步长:
-      <input id="step" type="number" value="500">
-    </label>
-
-    <button id="run">运行测试并画图</button>
-    <button id="export">导出为 PNG</button>
+    <div>
+      <label>攻击串输入：
+        <input id="attack" placeholder="示例：&quot; &quot; + &quot;:&quot;*100000 + &quot;\n1\n&quot; 或  &quot;:&quot;*100000" />
+      </label>
+      <div class="hint">程序会自动拆成前缀/中缀/后缀，忽略输入中的具体次数，按 N 生成。</div>
+    </div>
   </div>
 
-  <canvas id="chart" width="900" height="520"></canvas>
+  <div class="row">
+    <label>最大长度：
+      <input id="maxlen" type="number" value="4500" />
+    </label>
+
+    <label>步长：
+      <input id="step" type="number" value="500" />
+    </label>
+
+    <label>并发（Worker 数）：
+      <input id="concurrency" type="number" value="6" />
+    </label>
+
+    <label>拟合类型：
+      <select id="fitType">
+        <option value="none">无</option>
+        <option value="linear">线性</option>
+        <option value="quadratic">二次</option>
+        <option value="exponential">指数</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="toolbar">
+    <button id="run">运行测试并画图</button>
+    <button id="export">导出 PNG</button>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="chart"></canvas>
+  </div>
 </body>
 </html>
